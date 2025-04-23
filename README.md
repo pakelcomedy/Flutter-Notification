@@ -7,8 +7,10 @@ task_manager/
 │   │   └── notification_screen.dart
 │   ├── models/
 │   │   └── task_model.dart
-│   ├── widgets/
-│   │   └── task_item.dart
+│   ├── viewmodels/
+│   │   └── notification_viewmodel.dart
+│   ├── services/
+│   │   └── notification_service.dart
 │   ├── main.dart
 │   └── routes.dart
 ├── pubspec.yaml
