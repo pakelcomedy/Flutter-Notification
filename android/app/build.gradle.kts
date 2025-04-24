@@ -1,15 +1,19 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'com.google.gms.google-services' // Apply this plugin here
+plugins {
+    id("com.android.application")
+    id("kotlin-android")
+    // The Flutter Gradle Plugin must be applied after Android & Kotlin plugins
+    id("dev.flutter.flutter-gradle-plugin")
+}
 
 android {
-    namespace = "com.example.taskmanager" // Pastikan ini sesuai dengan nama package aplikasi Anda
-    compileSdkVersion flutter.compileSdkVersion
-    ndkVersion flutter.ndkVersion
+    namespace = "com.pakelcomedy .taskmanager"
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = "27.0.12077973"         // <-- Match the highest NDK required
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+        isCoreLibraryDesugaringEnabled = true   // <-- Enable desugaring
     }
 
     kotlinOptions {
@@ -17,11 +21,11 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.taskmanager" // Sesuaikan dengan aplikasi Anda
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
-        versionCode flutter.versionCode
-        versionName flutter.versionName
+        applicationId = "com.example.taskmanager"
+        minSdk = flutter.minSdkVersion
+        targetSdk = flutter.targetSdkVersion
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
     }
 
     buildTypes {
@@ -32,11 +36,10 @@ android {
 }
 
 dependencies {
-    implementation platform('com.google.firebase:firebase-bom:30.0.1') // Sesuaikan dengan versi terbaru
-    implementation 'com.google.firebase:firebase-messaging' // Untuk FCM
-    // Pastikan semua dependencies lainnya juga ditambahkan jika perlu
+    // Required for flutter_local_notifications & other libraries needing Java 8 APIs
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
 }
 
 flutter {
-    source "../.."
+    source = "../.."
 }
