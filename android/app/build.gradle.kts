@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.pakelcomedy .taskmanager"
+    namespace = "com.example.taskmanager"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = "27.0.12077973"         // <-- Match the highest NDK required
 

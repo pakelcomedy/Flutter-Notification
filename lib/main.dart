@@ -6,7 +6,7 @@ void main() {
 }
 
 class TaskManagerApp extends StatelessWidget {
-  const TaskManagerApp({Key? key}) : super(key: key);
+  const TaskManagerApp({super.key});
 
   @override
   Widget build(BuildContext context) {
