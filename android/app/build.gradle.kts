@@ -3,13 +3,13 @@ plugins {
     id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after Android & Kotlin plugins
     id("dev.flutter.flutter-gradle-plugin")
-    id("com.google.gms.google-services") version "4.4.2" apply false
+    id("com.google.gms.google-services") // Apply the plugin, no version here
 }
 
 android {
-    namespace = "com.example.taskmanager"
+    namespace = "com.pakelcomedy.taskmanager"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = "27.0.12077973"         // <-- Match the highest NDK required
+    ndkVersion = "27.0.12077973" // <-- Match the highest NDK required
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -22,7 +22,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.taskmanager"
+        applicationId = "com.pakelcomedy.taskmanager"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode

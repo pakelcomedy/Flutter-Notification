@@ -1,42 +1,19 @@
+// lib/screens/home_screen.dart
 import 'package:flutter/material.dart';
-import '../models/task_model.dart';
+import 'package:provider/provider.dart';
+import '../viewmodels/home_viewmodel.dart';
 import '../widgets/task_item.dart';
+import '../models/task_model.dart';
 import 'add_task_screen.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  final List<Task> _tasks = [];
-
-  void _addTask(Task task) {
-    setState(() {
-      _tasks.insert(0, task);
-    });
-  }
-
-  void _toggleCompleted(Task task, bool? checked) {
-    setState(() {
-      task.isCompleted = checked ?? false;
-    });
-  }
-
-  Future<void> _goToAdd() async {
-    final result = await Navigator.push<Task>(
-      context,
-      MaterialPageRoute(builder: (_) => const AddTaskScreen()),
-    );
-    if (result != null) {
-      _addTask(result);
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final vm = context.watch<HomeViewModel>();
+    final tasks = vm.tasks;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Tasks'),
@@ -47,22 +24,23 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: _tasks.isEmpty
-          ? const Center(
-              child: Text(
-                'No tasks yet.\nTap + to add one!',
-                textAlign: TextAlign.center,
-              ),
-            )
+      body: tasks.isEmpty
+          ? const Center(child: Text('No tasks yet.\nTap + to add one!', textAlign: TextAlign.center))
           : ListView.builder(
-              itemCount: _tasks.length,
+              itemCount: tasks.length,
               itemBuilder: (_, i) => TaskItem(
-                task: _tasks[i],
-                onChanged: (val) => _toggleCompleted(_tasks[i], val),
+                task: tasks[i],
+                onChanged: (val) => vm.toggleCompleted(tasks[i], val),
               ),
             ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _goToAdd,
+        onPressed: () async {
+          final result = await Navigator.push<Task>(
+            context,
+            MaterialPageRoute(builder: (_) => const AddTaskScreen()),
+          );
+          if (result != null) vm.addTask(result);
+        },
         child: const Icon(Icons.add),
       ),
     );

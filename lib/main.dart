@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
-import 'routes.dart';
+import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
-  runApp(const TaskManagerApp());
+import 'routes.dart';
+import 'viewmodels/home_viewmodel.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  // Inisialisasi Firebase tanpa opsi khusus
+  try {
+    await Firebase.initializeApp();
+  } catch (e) {
+    print("Error initializing Firebase: $e");
+  }
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<HomeViewModel>(
+          create: (_) => HomeViewModel(),
+        ),
+      ],
+      child: const TaskManagerApp(),
+    ),
+  );
 }
 
 class TaskManagerApp extends StatelessWidget {
-  const TaskManagerApp({super.key});
+  const TaskManagerApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
