@@ -3,6 +3,7 @@ plugins {
     id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after Android & Kotlin plugins
     id("dev.flutter.flutter-gradle-plugin")
+    id("com.google.gms.google-services") version "4.4.2" apply false
 }
 
 android {
@@ -38,6 +39,7 @@ android {
 dependencies {
     // Required for flutter_local_notifications & other libraries needing Java 8 APIs
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
+    implementation("com.google.firebase:firebase-messaging:23.4.0")
 }
 
 flutter {
